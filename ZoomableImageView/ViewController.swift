@@ -9,12 +9,22 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    let zoommableImageView:ZommableImageView = {
+        let zoom = ZommableImageView()
+        zoom.translatesAutoresizingMaskIntoConstraints = false
+        zoom.image = #imageLiteral(resourceName: "zoommein")
+        return zoom
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+//        view.addSubview(zoommableImageView)
+//        zoommableImageView.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
+//        zoommableImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+//         zoommableImageView.widthAnchor.constraint(equalToConstant:50).isActive = true
+//         zoommableImageView.heightAnchor.constraint(equalToConstant:50).isActive = true
     }
-
-
+    
+    
 }
 
