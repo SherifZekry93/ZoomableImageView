@@ -18,11 +18,11 @@ class ViewController: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.addSubview(zoommableImageView)
-//        zoommableImageView.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
-//        zoommableImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-//         zoommableImageView.widthAnchor.constraint(equalToConstant:50).isActive = true
-//         zoommableImageView.heightAnchor.constraint(equalToConstant:50).isActive = true
+        view.addSubview(zoommableImageView)
+        zoommableImageView.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
+        zoommableImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+         zoommableImageView.widthAnchor.constraint(equalToConstant:50).isActive = true
+         zoommableImageView.heightAnchor.constraint(equalToConstant:50).isActive = true
     }
     
     

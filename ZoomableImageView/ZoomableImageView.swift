@@ -43,10 +43,12 @@ class ZommableImageView: UIImageView
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(zoomInImage)))
     }
     fileprivate func zoomOut(_ zoomOutImage: UIImageView) {
+        bringSubviewToFront(zoomOutImage)
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             zoomOutImage.frame = self.startingFrame!
             self.blackBGView.alpha = 0
         }, completion: { (completed) in
+            zoomOutImage.transform = .identity
             self.zoomingImageView.removeFromSuperview()
         })
     }
@@ -82,15 +84,12 @@ class ZommableImageView: UIImageView
         let velocity = gesture.velocity(in: self)
         let translation = gesture.translation(in: self)
         guard let  zoomOutImage = gesture.view as? UIImageView else {return}
-
         switch gesture.state {
         case .ended:
-            if abs(velocity.x) < 700
-            {
-                UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.6, options: .curveEaseInOut, animations: {
+              if abs(translation.y) <= 200 && abs(velocity.y) < 700
+              {
                     zoomOutImage.transform = .identity
-                }, completion: nil)
-            }
+              }
         case .changed:
                 if abs(velocity.y) > 700
                 {
@@ -98,43 +97,15 @@ class ZommableImageView: UIImageView
                 }
                 else
                 {
+                    if abs(translation.y) >= 200
+                    {
+                        zoomOut(zoomOutImage)
+                        return
+                    }
                     zoomOutImage.transform = CGAffineTransform(translationX: zoomOutImage.frame.origin.x, y: translation.y)
                 }
         default:
             print()
         }
-        
-        /*let translation = gesture.translation(in: nil)
-         if let zoomOutImage = gesture.view as? UIImageView
-         {
-         guard let startingFrame = startingFrame else {return}
-         /*UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-         self.blackBGView.alpha = abs(1/translation.y)
-         }, completion: nil)*/
-         switch gesture.state
-         {
-         case .changed:
-         let velocity = gesture.velocity(in: nil)
-         if abs(velocity.y) > 500
-         {
-         zoomOut(zoomOutImage)
-         }
-         else
-         {
-         //zoomOutImage.transform = CGAffineTransform(translationX: zoomOutImage.frame.origin.x, y: translation.y)
-         }
-         case .ended:
-         print("ended")
-         /*zoomOutImage.transform = .identity
-         UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-         if self.blackBGView.alpha !=  1
-         {
-         self.blackBGView.alpha = 1
-         }
-         }, completion: nil)*/
-         default:
-         print("hello")
-         }
-         }*/
     }
 }
